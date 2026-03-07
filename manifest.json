@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Shorts AutoSkip",
+  "version": "1.0.0",
+  "description": "유튜브 쇼츠를 설정한 횟수만큼 재생 후 자동으로 넘깁니다.",
+  "permissions": ["storage"],
+  "host_permissions": ["*://*.youtube.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  }
+}
