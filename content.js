@@ -84,7 +84,6 @@
     if (location.href === lastUrl) return;
     lastUrl = location.href;
 
-    // URL이 바뀌면 이전 이벤트 해제 후 재초기화
     if (video) video.removeEventListener('timeupdate', onTimeUpdate);
     video = null; playCount = 0; lastTime = 0;
 
@@ -93,8 +92,8 @@
 
   // ── 팝업 설정 변경 실시간 반영 ───────────────────
   chrome.storage.onChanged.addListener((changes) => {
-    if (changes.maxPlays)            maxPlays = changes.maxPlays.newValue;
-    if (changes.enabled !== undefined) enabled = changes.enabled.newValue;
+    if (changes.maxPlays)              maxPlays = changes.maxPlays.newValue;
+    if (changes.enabled !== undefined) enabled  = changes.enabled.newValue;
   });
 
   // ── 초기 실행 ────────────────────────────────────

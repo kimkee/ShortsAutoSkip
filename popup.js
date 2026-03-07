@@ -57,31 +57,20 @@ chrome.storage.sync.get({ maxPlays: 2, enabled: true, lang: 'ko' }, (data) => {
 
 // 자동 넘김 토글
 document.getElementById('enableToggle').addEventListener('change', (e) => {
-  enabled = e.target.checked;
-  save();
+  enabled = e.target.checked; save();
 });
 
 // 횟수 증가 (최대 10)
 document.getElementById('plusBtn').addEventListener('click', () => {
-  if (maxPlays < 10) {
-    maxPlays++;
-    document.getElementById('countNum').textContent = maxPlays;
-    save();
-  }
+  if (maxPlays < 10) { maxPlays++; document.getElementById('countNum').textContent = maxPlays; save(); }
 });
 
 // 횟수 감소 (최소 1)
 document.getElementById('minusBtn').addEventListener('click', () => {
-  if (maxPlays > 1) {
-    maxPlays--;
-    document.getElementById('countNum').textContent = maxPlays;
-    save();
-  }
+  if (maxPlays > 1) { maxPlays--; document.getElementById('countNum').textContent = maxPlays; save(); }
 });
 
 // 한/영 언어 전환
 document.getElementById('langBtn').addEventListener('click', () => {
-  lang = lang === 'ko' ? 'en' : 'ko';
-  applyLang();
-  save();
+  lang = lang === 'ko' ? 'en' : 'ko'; applyLang(); save();
 });
