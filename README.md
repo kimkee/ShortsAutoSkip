@@ -109,4 +109,4 @@ ShortsAutoSkip/
 ## 📬 문의
 
 - GitHub Issues: [https://github.com/kimkee/ShortsAutoSkip/issues](https://github.com/kimkee/ShortsAutoSkip/issues)
-- Email: your@email.com
+- Email: [EMAIL_ADDRESS]
