@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shorts AutoSkip Promo Image</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #e5e5e5; /* 캔버스 바깥 배경 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        /* 1280x800 정확한 규격 고정 */
+        #promo-canvas {
+            width: 1280px;
+            height: 800px;
+            background-color: #ffffff; /* 밝은 배경 */
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            /* 브라우저 크기에 맞춰 비율 유지하며 축소되도록 설정 */
+            transform-origin: center center;
+        }
+
+        /* 편집 가능 요소 강조 (마우스 오버시) */
+        [contenteditable="true"]:hover {
+            outline: 2px dashed rgba(0, 0, 0, 0.3); /* 밝은 테마에 맞춘 윤곽선 */
+            border-radius: 4px;
+        }
+
+        /* 유튜브 쇼츠 스크롤 숨김 */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* 토글 스위치 애니메이션용 */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #FF0000;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #FF0000;
+        }
+    </style>
+    <script>
+        // 화면 크기에 맞게 캔버스 스케일 조정 (1280x800 비율 유지)
+        function resizeCanvas() {
+            const canvas = document.getElementById('promo-canvas');
+            const scaleX = window.innerWidth / 1280;
+            const scaleY = window.innerHeight / 800;
+            const scale = Math.min(scaleX, scaleY, 1); // 최대 1배율
+            if (scale < 1) {
+                canvas.style.transform = `scale(${scale * 0.95})`; // 약간의 여백(0.95)
+            } else {
+                canvas.style.transform = `scale(1)`;
+            }
+        }
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('DOMContentLoaded', resizeCanvas);
+
+        // 이미지 다운로드 함수 추가
+        async function downloadPromoImage() {
+            const canvasElement = document.getElementById('promo-canvas');
+            const btn = document.getElementById('download-btn');
+            
+            // 다운로드 중 버튼 상태 변경
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<svg class="w-5 h-5 mr-2 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> 캡처 중...';
+            
+            // 1280x800 사이즈 원복 (화면 크기에 맞춰 축소되어 있던 것을 1배율로 복구)
+            const currentTransform = canvasElement.style.transform;
+            canvasElement.style.transform = 'scale(1)';
+
+            try {
+                // html2canvas를 이용해 해당 영역 캡처
+                const canvas = await html2canvas(canvasElement, {
+                    width: 1280,
+                    height: 800,
+                    scale: 1, 
+                    useCORS: true, // 외부 이미지(배경 풍경 등) 로드 허용
+                    backgroundColor: '#ffffff'
+                });
+
+                // 다운로드 실행
+                const link = document.createElement('a');
+                link.download = 'Shorts_AutoSkip_Promo_1280x800.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            } catch (error) {
+                alert('이미지 저장 중 오류가 발생했습니다.');
+                console.error(error);
+            } finally {
+                // 원래 스케일 및 버튼 텍스트 복구
+                canvasElement.style.transform = currentTransform;
+                btn.innerHTML = originalText;
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <!-- 프로모션 캔버스 (1280x800) -->
+    <div id="promo-canvas" class="flex text-gray-900">
+        
+        <!-- 배경 그라데이션 포인트 (유튜브 레드) -->
+        <div class="absolute w-[800px] h-[800px] bg-[#FF0000] rounded-full blur-[180px] opacity-[0.08] -top-[200px] -right-[100px] pointer-events-none"></div>
+        <div class="absolute w-[600px] h-[600px] bg-[#FF0000] rounded-full blur-[150px] opacity-[0.05] bottom-[0px] -left-[200px] pointer-events-none"></div>
+
+        <!-- 좌측: 핵심 카피 영역 (텍스트) -->
+        <div class="w-[55%] h-full flex flex-col justify-center pl-20 pr-10 z-10 relative">
+            <div class="mb-4">
+                <span class="bg-red-50 text-red-600 px-4 py-1.5 rounded-full text-lg font-bold border border-red-200 tracking-wider">
+                    Chrome Extension
+                </span>
+            </div>
+            
+            <h1 class="text-[40px] font-black leading-[1.3] tracking-tight mt-6" contenteditable="true">
+                PC 에서 쇼츠, 이제 손대지 말고<br>
+                <span class="text-[#FF0000]">편하게 보세요!</span>
+            </h1>
+            
+            <p class="text-[22px] text-gray-800 font-semibold mt-8 break-keep leading-snug" contenteditable="true">
+                끝나면 알아서 스~윽!- 유튜브 쇼츠 자동 넘기기
+            </p>
+            
+            <ul class="mt-14 space-y-7 text-[26px] font-medium">
+                <li class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center mr-5 shadow-[0_4px_10px_rgba(255,0,0,0.1)]">
+                        <i data-lucide="check" class="text-[#FF0000] w-6 h-6"></i>
+                    </div>
+                    <span contenteditable="true">원하는 만큼 반복 재생 횟수 설정</span>
+                </li>
+                <li class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center mr-5 shadow-[0_4px_10px_rgba(255,0,0,0.1)]">
+                        <i data-lucide="check" class="text-[#FF0000] w-6 h-6"></i>
+                    </div>
+                    <span contenteditable="true">간편한 On/Off 토글 버튼</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 우측: 스크린샷 및 UI 강조 영역 -->
+        <div class="w-[45%] h-full relative z-10 flex items-center justify-end pr-12">
+            
+            <!-- 데스크탑 브라우저 창 목업 -->
+            <div class="w-[540px] h-[680px] bg-white rounded-2xl border border-gray-200 shadow-2xl flex flex-col overflow-hidden relative">
+                <!-- 브라우저 상단 탭바 -->
+                <div class="h-12 bg-gray-100 flex items-center px-4 border-b border-gray-200 relative">
+                    <div class="flex space-x-2 absolute left-4">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <!-- 주소창 -->
+                    <div class="mx-auto w-[55%] bg-white border border-gray-200 rounded-md text-sm text-gray-500 px-4 py-1.5 flex items-center shadow-sm">
+                        <i data-lucide="lock" class="w-3.5 h-3.5 mr-2"></i> youtube.com/shorts
+                    </div>
+                    <!-- 확장프로그램 영역 (데스크탑 특화 UI) -->
+                    <div class="absolute right-4 flex items-center space-x-3">
+                        <i data-lucide="puzzle" class="w-4 h-4 text-gray-500"></i>
+                        <div class="w-7 h-7 bg-red-50 rounded border border-red-200 flex items-center justify-center relative">
+                            <i data-lucide="fast-forward" class="w-4 h-4 text-[#FF0000]"></i>
+                        </div>
+                        <div class="w-6 h-6 rounded-full bg-gray-300"></div>
+                    </div>
+                </div>
+
+                <!-- 유튜브 데스크탑 레이아웃 목업 -->
+                <div class="flex-1 bg-white flex relative overflow-hidden">
+                    <!-- 좌측 사이드바 (데스크탑 느낌 강조) -->
+                    <div class="w-[72px] h-full border-r border-gray-100 flex flex-col items-center py-4 space-y-7 bg-white shrink-0">
+                        <i data-lucide="menu" class="w-5 h-5 text-gray-800 mb-2"></i>
+                        <div class="flex flex-col items-center"><i data-lucide="home" class="w-6 h-6 text-gray-800 stroke-[1.5]"></i><span class="text-[10px] mt-1 text-gray-600">홈</span></div>
+                        <div class="flex flex-col items-center"><i data-lucide="youtube" class="w-6 h-6 text-[#FF0000] fill-current"></i><span class="text-[10px] mt-1 font-bold text-gray-900">Shorts</span></div>
+                        <div class="flex flex-col items-center"><i data-lucide="tv" class="w-6 h-6 text-gray-800 stroke-[1.5]"></i><span class="text-[10px] mt-1 text-gray-600">구독</span></div>
+                    </div>
+
+                    <!-- 쇼츠 메인 플레이어 영역 -->
+                    <div class="flex-1 bg-gray-50 flex justify-center items-center py-6 relative">
+                        <div class="flex h-[520px] items-end pb-4">
+                            <!-- 영상 영역 -->
+                            <div class="w-[280px] h-full bg-black rounded-xl relative overflow-hidden shadow-md border border-gray-200 text-white group">
+                                <!-- 확실한 힐링 자연 풍경 이미지로 교체 (인라인 스타일 사용으로 오류 방지) -->
+                                <div class="absolute inset-0 bg-cover bg-center opacity-90" style="background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=600&auto=format&fit=crop');"></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                
+                                <!-- 데스크탑 쇼츠 내부 UI (하단 정보) -->
+                                <div class="absolute left-4 bottom-5 right-4">
+                                    <div class="flex items-center space-x-2 mb-2">
+                                        <div class="w-8 h-8 bg-gray-400 rounded-full border border-gray-300 bg-[url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop')] bg-cover"></div>
+                                        <span class="font-bold text-sm">힐링자연</span>
+                                        <button class="bg-white text-black px-2.5 py-0.5 rounded-full text-xs font-bold ml-1">구독</button>
+                                    </div>
+                                    <p class="text-[13px] line-clamp-2 text-gray-100">마음이 편안해지는 풍경입니다 🌿 다 보면 다음으로 알아서 슉! #shorts #자연</p>
+                                </div>
+                                
+                                <!-- 프로그레스 바 -->
+                                <div class="absolute bottom-0 left-0 right-0 h-1 bg-gray-500/50">
+                                    <div class="h-full bg-[#FF0000] w-[75%] relative"></div>
+                                </div>
+                            </div>
+
+                            <!-- 데스크탑 쇼츠 우측 액션 버튼 (영상 바깥쪽에 위치) -->
+                            <div class="flex flex-col ml-3 space-y-3 mb-2">
+                                <div class="flex flex-col items-center"><div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-1 shadow-sm border border-gray-200"><i data-lucide="thumbs-up" class="w-5 h-5 text-gray-800 fill-gray-800"></i></div><span class="text-xs text-gray-600">1.2만</span></div>
+                                <div class="flex flex-col items-center"><div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-1 shadow-sm border border-gray-200"><i data-lucide="thumbs-down" class="w-5 h-5 text-gray-800"></i></div><span class="text-xs text-gray-600">싫어요</span></div>
+                                <div class="flex flex-col items-center"><div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-1 shadow-sm border border-gray-200"><i data-lucide="message-square" class="w-5 h-5 text-gray-800"></i></div><span class="text-xs text-gray-600">342</span></div>
+                                <div class="flex flex-col items-center"><div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-1 shadow-sm border border-gray-200"><i data-lucide="share-2" class="w-5 h-5 text-gray-800"></i></div><span class="text-xs text-gray-600">공유</span></div>
+                                <div class="flex flex-col items-center mt-2"><div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm border border-gray-200"><i data-lucide="more-horizontal" class="w-5 h-5 text-gray-800"></i></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 핵심 포인트! 익스텐션 팝업 UI (위치 약간 우상단으로 보정) -->
+            <div class="absolute top-10 -right-4 w-[340px] bg-white rounded-2xl border-[4px] border-[#FF0000] shadow-[0_15px_40px_rgba(255,0,0,0.25)] z-20 overflow-hidden transform rotate-2 transition-transform hover:rotate-0 duration-300">
+                <!-- 팝업 헤더 -->
+                <div class="bg-gray-50 px-5 py-4 border-b border-gray-200 flex justify-between items-center">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-[#FF0000] rounded-lg flex items-center justify-center">
+                            <i data-lucide="fast-forward" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <span class="font-bold text-xl text-gray-900 tracking-tight">Shorts AutoSkip</span>
+                    </div>
+                    <i data-lucide="settings" class="w-5 h-5 text-gray-400"></i>
+                </div>
+                
+                <!-- 팝업 본문 -->
+                <div class="p-6 space-y-6">
+                    <!-- 기능 1: 자동 넘기기 토글 -->
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <div class="font-bold text-lg text-gray-900">자동 넘기기</div>
+                            <div class="text-sm text-gray-500 mt-1">쇼츠가 끝나면 다음으로 이동</div>
+                        </div>
+                        <!-- 커스텀 토글 -->
+                        <div class="relative inline-block w-14 mr-2 align-middle select-none transition duration-200 ease-in">
+                            <input type="checkbox" name="toggle" id="toggle1" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 top-1 right-1 border-[#FF0000] transition-all duration-300" checked/>
+                            <label for="toggle1" class="toggle-label block overflow-hidden h-8 rounded-full bg-[#FF0000] cursor-pointer transition-colors duration-300"></label>
+                        </div>
+                    </div>
+                    
+                    <div class="h-px bg-gray-200 w-full"></div>
+
+                    <!-- 기능 2: 반복 횟수 설정 -->
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <div class="font-bold text-lg text-gray-900">반복 재생</div>
+                            <div class="text-sm text-gray-500 mt-1">설정한 횟수만큼 반복 후 넘김</div>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-100 rounded-lg p-1 border border-gray-200">
+                            <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-900 shadow-sm rounded bg-white"><i data-lucide="minus" class="w-4 h-4"></i></button>
+                            <span class="w-8 text-center font-bold text-lg text-gray-900">1</span>
+                            <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-900 shadow-sm rounded bg-white"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 팝업 하단 푸터 -->
+                <div class="bg-red-50 py-3 border-t border-red-100 text-center text-sm text-[#FF0000] font-bold flex justify-center items-center">
+                    <div class="w-2 h-2 rounded-full bg-[#FF0000] mr-2 animate-pulse"></div>
+                    현재 작동 중
+                </div>
+            </div>
+
+            <!-- 시선을 끄는 화살표 (텍스트 -> 팝업) -->
+            <div class="absolute top-[250px] -left-[160px] z-20 pointer-events-none opacity-80">
+                <svg width="180" height="100" viewBox="0 0 180 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 90 Q 60 10 160 30" stroke="#FF0000" stroke-width="4" stroke-linecap="round" stroke-dasharray="8 8" fill="none"/>
+                    <path d="M150 15 L 165 32 L 145 40" stroke="#FF0000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                </svg>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Lucide 아이콘 초기화
+        lucide.createIcons();
+    </script>
+
+    <!-- 우측 하단 다운로드 플로팅 버튼 -->
+    <button id="download-btn" onclick="downloadPromoImage()" class="fixed bottom-8 right-8 bg-[#FF0000] hover:bg-red-700 text-white px-6 py-3 rounded-full shadow-2xl font-bold flex items-center transition-colors z-50">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        1280x800 이미지로 저장
+    </button>
+
+</body>
+</html>
