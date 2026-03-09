@@ -2,9 +2,13 @@
 
 > YouTube Shorts를 설정한 횟수만큼만 재생하고 자동으로 다음 쇼츠로 넘어가는 크롬 익스텐션
 
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-등록예정-brightgreen?logo=googlechrome)](https://github.com/kimkee/ShortsAutoSkip)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Go%20to%20Store-brightgreen?logo=googlechrome)](https://chromewebstore.google.com/detail/shorts-autoskip/dkipdcdfoioldhfhekoanhkdepclmbca)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Manifest V3](https://img.shields.io/badge/Manifest-V3-orange)](https://developer.chrome.com/docs/extensions/mv3/)
+
+--- 1280x800 Promo Image
+
+![Promo Image](./screen/promo.png) 
 
 ---
 

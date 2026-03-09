@@ -24,8 +24,8 @@ const i18n = {
 };
 
 let lang     = 'ko'; // 현재 언어
-let maxPlays = 2;    // 반복 재생 횟수 (1~10)
-let enabled  = true; // 자동 넘김 활성화 여부
+let maxPlays = 1;    // 반복 재생 횟수 (1~10)
+let enabled  = false; // 자동 넘김 활성화 여부
 
 // ── UI 텍스트를 현재 언어로 업데이트 ────────────
 function applyLang() {
@@ -44,7 +44,7 @@ function save() {
 }
 
 // ── 저장된 설정 불러오기 (팝업 열릴 때 1회 실행) ──
-chrome.storage.sync.get({ maxPlays: 2, enabled: true, lang: 'ko' }, (data) => {
+chrome.storage.sync.get({ maxPlays: 1, enabled: false, lang: 'ko' }, (data) => {
   maxPlays = data.maxPlays;
   enabled  = data.enabled;
   lang     = data.lang;
@@ -59,17 +59,14 @@ chrome.storage.sync.get({ maxPlays: 2, enabled: true, lang: 'ko' }, (data) => {
 document.getElementById('enableToggle').addEventListener('change', (e) => {
   enabled = e.target.checked; save();
 });
-
 // 횟수 증가 (최대 10)
 document.getElementById('plusBtn').addEventListener('click', () => {
   if (maxPlays < 10) { maxPlays++; document.getElementById('countNum').textContent = maxPlays; save(); }
 });
-
 // 횟수 감소 (최소 1)
 document.getElementById('minusBtn').addEventListener('click', () => {
   if (maxPlays > 1) { maxPlays--; document.getElementById('countNum').textContent = maxPlays; save(); }
 });
-
 // 한/영 언어 전환
 document.getElementById('langBtn').addEventListener('click', () => {
   lang = lang === 'ko' ? 'en' : 'ko'; applyLang(); save();

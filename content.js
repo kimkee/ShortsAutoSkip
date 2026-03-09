@@ -15,7 +15,7 @@
 
   // ── 설정값 불러오기 ──────────────────────────
   function loadSettings(cb) {
-    chrome.storage.sync.get({ maxPlays: 2, enabled: true }, (data) => {
+    chrome.storage.sync.get({ maxPlays: 1, enabled: false }, (data) => {
       maxPlays = data.maxPlays;
       enabled  = data.enabled;
       if (cb) cb();
