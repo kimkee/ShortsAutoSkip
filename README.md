@@ -6,7 +6,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Manifest V3](https://img.shields.io/badge/Manifest-V3-orange)](https://developer.chrome.com/docs/extensions/mv3/)
 
---- 1280x800 Promo Image
+--- 
 
 ![Promo Image](./screen/promo.png) 
 
@@ -30,8 +30,8 @@ YouTube Shorts는 기본적으로 영상이 끝나면 무한 반복 재생됩니
 
 ## 📦 설치 방법
 
-### Chrome 웹 스토어 (권장)
-> 스토어 등록 후 링크 업데이트 예정
+### Chrome 웹 스토어 (설치 권장)
+> [스토어 링크 https://chromewebstore.google.com/](https://chromewebstore.google.com/detail/shorts-autoskip/dkipdcdfoioldhfhekoanhkdepclmbca)
 
 ### 직접 설치 (개발자 모드)
 
