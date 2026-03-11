@@ -23,19 +23,20 @@ const i18n = {
   }
 };
 
-let lang     = 'ko'; // 현재 언어
+let lang     = 'en'; // 현재 언어
 let maxPlays = 1;    // 반복 재생 횟수 (1~10)
 let enabled  = false; // 자동 넘김 활성화 여부
 
 // ── UI 텍스트를 현재 언어로 업데이트 ────────────
 function applyLang() {
-  const t = i18n[lang];
+  const t = i18n[lang]; // i18n 객체에서 현재 언어에 맞는 텍스트를 가져옴
   document.getElementById('enableLabel').textContent = t.enable;
   document.getElementById('enableSub').textContent   = t.enableSub;
   document.getElementById('countLabel').textContent  = t.count;
   document.getElementById('countSub').textContent    = t.countSub;
   document.getElementById('footerText').textContent  = t.footer;
-  document.getElementById('langBtn').textContent     = lang === 'ko' ? 'EN' : '한';
+  document.getElementById('langBtn').textContent     = lang === 'ko' ? 'EN' : 'KO';
+  document.getElementById('langBtn').setAttribute('title', lang === 'ko' ? 'Switch to English' : '한글로 전환');
 }
 
 // ── 설정값을 storage에 저장 ──────────────────────
@@ -44,7 +45,7 @@ function save() {
 }
 
 // ── 저장된 설정 불러오기 (팝업 열릴 때 1회 실행) ──
-chrome.storage.sync.get({ maxPlays: 1, enabled: false, lang: 'ko' }, (data) => {
+chrome.storage.sync.get({ maxPlays: 1, enabled: false, lang: 'en' }, (data) => {
   maxPlays = data.maxPlays;
   enabled  = data.enabled;
   lang     = data.lang;
@@ -71,3 +72,7 @@ document.getElementById('minusBtn').addEventListener('click', () => {
 document.getElementById('langBtn').addEventListener('click', () => {
   lang = lang === 'ko' ? 'en' : 'ko'; applyLang(); save();
 });
+
+window.setTimeout(() => {
+  document.querySelector('body').classList.add('load');
+}, 500);

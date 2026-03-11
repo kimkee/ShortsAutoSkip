@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <title>Shorts AutoSkip</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {width: 290px;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;background: #fff;color: #111;padding: 20px;}
-
+<meta charset="UTF-8" />
+<title>Shorts AutoSkip</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    *,::after,::before { box-sizing: border-box; margin: 0; padding: 0; }
+    ::-webkit-scrollbar { width: 12px; height: 12px; }
+    ::-webkit-scrollbar-track { background-color: #aaaaaa33; }
+    ::-webkit-scrollbar-corner { background-color: transparent; }
+    ::-webkit-scrollbar-button { display: none; }
+    ::-webkit-scrollbar-thumb { width: 10px; border-radius: 7px; background-color: #aaaaaa55; border: solid 3px transparent; background-clip: content-box; }
+    ::-webkit-scrollbar-thumb:hover { background-color: #aaaaaa66; }
+    body {min-width: 360px;min-height: 300px;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;background: #f7f7f7;color: #111;}
+    .wrap{max-width: 360px;margin: auto;display: flex;flex-direction: column;height: 100dvh;background: #ffffff;border: #dddddd solid 1px;}
+    .main{flex:1;display: flex;flex-direction: column;padding: 10px 20px 0px 20px;overflow-y: auto;}
     /* 헤더 */
-    .header   { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
-    .title    { font-size: 15px; font-weight: 700; }
+    .header   {display: flex;align-items: center;justify-content: space-between;padding: 15px 20px 15px 20px;background: #f7f7f7;border-bottom: #dddddd solid 1px;}
+    .title    {font-size: 15px;font-weight: 700;color: #333333;text-decoration: none;margin-left: -4px;}
     .icon     {width: 24px;height: 24px;margin-top: -2px;margin-right: 6px;vertical-align: middle;}
     .lang-btn {font-size: 11px;color: #888;cursor: pointer;border: 1px solid #c5c5c5;border-radius: 4px;padding: 2px 8px;background: none;}
     .lang-btn:hover { background: #f5f5f5; }
@@ -18,12 +26,14 @@
     .row      {display: flex;align-items: center;justify-content: space-between;padding: 13px 0;border-bottom: 1px solid #d1d1d1;}
     .label    {font-size: 14px;color: #222;}
     .sublabel {font-size: 13px;color: #4b4b4b;margin-top: 3px;}
+    [for="enableToggle"] {cursor:pointer}
 
     /* 토글 스위치 */
-    .toggle          {position: relative;width: 40px;height: 22px;}
+    .toggle          {position: relative;width: 40px;height: 24px;}
     .toggle input    { opacity: 0; width: 0; height: 0; }
-    .slider          {position: absolute;inset: 0;background: #858585;border: #858585;border-radius: 22px;cursor: pointer;transition: .2s;}
-    .slider:before   {content: '';position: absolute;width: 16px;height: 16px;left: 3px;top: 3px;background: #ffffff;border: #dddddd solid 1px;border-radius: 50%;transition: .2s;box-sizing: border-box;}
+    .slider          {position: absolute;inset: 0;background: #b5b5b5;border: #939393 solid 1px;border-radius: 22px;cursor: pointer;}
+    .slider:before   {content: '';position: absolute;width: 16px;height: 16px;left: 3px;top: 3px;background: #ffffff;border: #979797 solid 1px;border-radius: 50%;box-sizing: border-box;/* box-shadow: inset #878787 0px 0px 1px; */}
+    body.load .slider::before{transition: all 0.2s ease;}
     input:checked + .slider        {background: #ff0000;border-color: #ff0000;}
     input:checked + .slider:before {transform: translateX(17px);border-color: #ffffff;}
 
@@ -34,43 +44,49 @@
     .count-num  { font-size: 16px; font-weight: 700; min-width: 20px; text-align: center; }
 
     /* 푸터 */
-    .footer {margin-top: 15px;text-align: center;font-size: 12px;color: #4b4b4b;}
-  </style>
+    .footer {/* margin-top: 15px; */text-align: center;font-size: 13px;color: #858585;padding: 10px 20px 10px 20px;border-top: #dddddd solid 1px;}
+</style>
 </head>
 <body>
-  <!-- 헤더: 타이틀 + 언어 전환 버튼 -->
-  <div class="header">
-    <span class="title"><img src="./icons/icon48.png" class="icon" alt=""> Shorts AutoSkip</span>
-    <button class="lang-btn" id="langBtn">EN</button>
-  </div>
+<!-- 헤더: 타이틀 + 언어 전환 버튼 -->
+<div class="wrap">
+    <header class="header">
+    <a href="./popup.html" target="_blank" class="title"><img src="./icons/icon48.png" class="icon" alt=""> Shorts AutoSkip</a>
+    <button class="lang-btn" id="langBtn"></button>
+    </header>
+    <main class="main">
+        <!-- 자동 넘김 ON/OFF 토글 -->
+        <label for="enableToggle" class="row">
+        <div>
+            <div class="label" id="enableLabel"></div>
+            <div class="sublabel" id="enableSub"></div>
+        </div>
+        <div class="toggle">
+            <input type="checkbox" id="enableToggle" />
+            <span class="slider"></span>
+        </div>
+        </label>
+        <!-- 반복 횟수 조절 (+/-) -->
+        <div class="row" style="border-bottom:none">
+            <div>
+                <div class="label" id="countLabel"></div>
+                <div class="sublabel" id="countSub"></div>
+            </div>
+            <div class="count-ctrl">
+                <button class="count-btn" id="minusBtn">-</button>
+                <span class="count-num" id="countNum">1</span>
+                <button class="count-btn" id="plusBtn">+</button>
+            </div>
+        </div>
+        <!-- <p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p>
+        <p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p>
+        <p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p>
+        <p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p>
+        <p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p><p>dd</p> -->
+    </main>
+    <footer class="footer" id="footerText"></footer>
+</div>
 
-  <!-- 자동 넘김 ON/OFF 토글 -->
-  <div class="row">
-    <div>
-      <div class="label" id="enableLabel">자동 넘김</div>
-      <div class="sublabel" id="enableSub">쇼츠 자동 넘김 ON/OFF</div>
-    </div>
-    <label class="toggle">
-      <input type="checkbox" id="enableToggle" />
-      <span class="slider"></span>
-    </label>
-  </div>
-
-  <!-- 반복 횟수 조절 (+/-) -->
-  <div class="row" style="border-bottom:none">
-    <div>
-      <div class="label" id="countLabel">반복 횟수</div>
-      <div class="sublabel" id="countSub">몇 번 재생 후 넘길까요?</div>
-    </div>
-    <div class="count-ctrl">
-      <button class="count-btn" id="minusBtn">-</button>
-      <span class="count-num" id="countNum">1</span>
-      <button class="count-btn" id="plusBtn">+</button>
-    </div>
-  </div>
-
-  <div class="footer" id="footerText">YouTube Shorts 페이지에서만 동작합니다</div>
-
-  <script src="popup.js"></script>
+<script src="popup.js"></script>
 </body>
 </html>
