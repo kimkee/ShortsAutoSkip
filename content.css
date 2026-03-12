@@ -1,0 +1,43 @@
+/**
+ * content.css
+ * YouTube Shorts 버튼바에 삽입되는 자동넘김 버튼 스타일
+ */
+
+/* ── 버튼 기본 스타일 ───────────────────────────── */
+#btn-auto-skip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  margin-bottom: 16px;
+}
+
+#btn-auto-skip img {
+  width: 28px;
+  height: 28px;
+  display: block;
+  pointer-events: none;
+  transition: filter 0.2s;
+  transform: rotate(90deg);
+}
+
+/* ── OFF 상태: 이미지만 흑백 ────────────────────── */
+#btn-auto-skip.off img { filter: grayscale(1); }
+
+/* ── ON 상태: 배경 강조 ─────────────────────────── */
+#btn-auto-skip.on {
+  background: rgba(255, 0, 0, 0.25);
+  box-shadow: 0 0 0 2px rgba(255, 60, 60, 0.5);
+}
+
+/* ── 호버 ───────────────────────────────────────── */
+#btn-auto-skip:hover { background: rgba(255,255,255,0.22); transform: scale(1.08); }
+#btn-auto-skip.on:hover { background: rgba(255, 0, 0, 0.38); }

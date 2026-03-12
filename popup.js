@@ -23,8 +23,8 @@ const i18n = {
   }
 };
 
-let lang     = 'en'; // 현재 언어
-let maxPlays = 1;    // 반복 재생 횟수 (1~10)
+let lang     = 'en';  // 현재 언어 (기본: 영어)
+let maxPlays = 1;     // 반복 재생 횟수 (1~10)
 let enabled  = false; // 자동 넘김 활성화 여부
 
 // ── UI 텍스트를 현재 언어로 업데이트 ────────────
@@ -35,7 +35,7 @@ function applyLang() {
   document.getElementById('countLabel').textContent  = t.count;
   document.getElementById('countSub').textContent    = t.countSub;
   document.getElementById('footerText').textContent  = t.footer;
-  document.getElementById('langBtn').textContent     = lang === 'ko' ? 'EN' : 'KO';
+  document.getElementById('langBtn').textContent     = lang === 'ko' ? 'EN' : 'KO'; // 반대 언어 표시
   document.getElementById('langBtn').setAttribute('title', lang === 'ko' ? 'Switch to English' : '한글로 전환');
 }
 
@@ -73,6 +73,8 @@ document.getElementById('langBtn').addEventListener('click', () => {
   lang = lang === 'ko' ? 'en' : 'ko'; applyLang(); save();
 });
 
+// ── 초기 로딩 후 트랜지션 활성화 ────────────────
+// body.load 클래스 추가 전까지 토글 트랜지션 비활성화 → 초기 깜빡임 방지
 window.setTimeout(() => {
   document.querySelector('body').classList.add('load');
 }, 500);
