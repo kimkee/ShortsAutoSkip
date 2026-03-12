@@ -13,7 +13,7 @@
   padding: 0;
   border: none;
   border-radius: 50%;
-  background: rgba(255,255,255,0.1);
+  background: rgba(133, 133, 133, 0.28);
   backdrop-filter: blur(4px);
   cursor: pointer;
   transition: background 0.2s, transform 0.15s;
@@ -26,7 +26,6 @@
   display: block;
   pointer-events: none;
   transition: filter 0.2s;
-  transform: rotate(90deg);
 }
 
 /* ── OFF 상태: 이미지만 흑백 ────────────────────── */

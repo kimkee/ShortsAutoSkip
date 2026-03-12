@@ -112,7 +112,7 @@
     btn.id   = 'btn-auto-skip';
 
     const img = document.createElement('img');
-    img.src = chrome.runtime.getURL('icons/icon48.png');
+    img.src = chrome.runtime.getURL('icons/icon128.png');
     btn.appendChild(img);
     updateBtnState(btn);
 
