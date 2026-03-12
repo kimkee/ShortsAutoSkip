@@ -7,7 +7,8 @@
  */
 (function () {
   let playCount     = 0;     // 현재 쇼츠 재생 횟수
-  let maxPlays      = 2;     // 설정된 최대 재생 횟수
+  let maxPlays      = 1;     // 설정된 최대 재생 횟수
+  let lang          = 'en';  // 설정된 언어
   let enabled       = true;  // 자동 넘김 ON/OFF
   let video         = null;  // 현재 연결된 <video> 요소
   let lastTime      = 0;     // 이전 프레임의 currentTime
@@ -15,10 +16,12 @@
 
   // ── 설정값 불러오기 ──────────────────────────
   function loadSettings(cb) {
-    chrome.storage.sync.get({ maxPlays: 1, enabled: false }, (data) => {
+    chrome.storage.sync.get({ maxPlays: 1, enabled: false, lang: 'en' }, (data) => {
       maxPlays = data.maxPlays;
       enabled  = data.enabled;
+      lang     = data.lang;
       if (cb) cb();
+      chrome.storage.sync.set({ maxPlays :data.maxPlays, enabled :data.enabled, lang :data.lang });
     });
   }
 
