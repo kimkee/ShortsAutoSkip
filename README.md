@@ -1,14 +1,34 @@
 # Shorts AutoSkip
 
-> YouTube Shorts를 설정한 횟수만큼만 재생하고 자동으로 다음 쇼츠로 넘어가는 크롬 익스텐션
+<p align="center">
+  <img src="./icons/icon128.png" width="128" alt="Shorts AutoSkip Logo">
+</p>
 
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Go%20to%20Store-brightgreen?logo=googlechrome)](https://chromewebstore.google.com/detail/shorts-autoskip/dkipdcdfoioldhfhekoanhkdepclmbca)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Manifest V3](https://img.shields.io/badge/Manifest-V3-orange)](https://developer.chrome.com/docs/extensions/mv3/)
+<h1 align="center"> YouTube Shorts AutoSkip Chrome Extension <br></h1>
+
+
+<p align="center"> YouTube Shorts를 설정한 횟수만큼만 재생하고 자동으로 다음 쇼츠로 넘어가는 크롬 익스텐션 </p>
+
+
+
+<p align="center">
+  <a href="https://chromewebstore.google.com/detail/dkipdcdfoioldhfhekoanhkdepclmbca">
+    <img src="https://img.shields.io/chrome-web-store/v/dkipdcdfoioldhfhekoanhkdepclmbca?style=for-the-badge" alt="Chrome Web Store">
+  </a>
+  <img src="https://img.shields.io/badge/Manifest-V3-orange?style=for-the-badge" alt="Manifest V3">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="License: MIT">
+  <img src="https://img.shields.io/chrome-web-store/users/dkipdcdfoioldhfhekoanhkdepclmbca?style=for-the-badge" alt="Chrome Web Store Users">
+  <img src="https://img.shields.io/chrome-web-store/rating/dkipdcdfoioldhfhekoanhkdepclmbca?style=for-the-badge" alt="Chrome Web Store Rating">
+</p>
+
 
 --- 
 
-![Promo Image](./screen/promo.png) 
+<p align="center">
+  <img src="./screen/1280X800_3.png" width="47%" alt="Screenshot 1">
+  &nbsp;&nbsp;
+  <img src="./screen/1280X800_2.png" width="47%" alt="Screenshot 2">
+</p>
 
 ---
 
@@ -113,4 +133,4 @@ ShortsAutoSkip/
 ## 📬 문의
 
 - GitHub Issues: [https://github.com/kimkee/ShortsAutoSkip/issues](https://github.com/kimkee/ShortsAutoSkip/issues)
-- Email: [EMAIL_ADDRESS]
+- Email: kimkee7@gmail.com
