@@ -12,7 +12,7 @@
     ::-webkit-scrollbar-button { display: none; }
     ::-webkit-scrollbar-thumb { width: 10px; border-radius: 7px; background-color: #aaaaaa55; border: solid 3px transparent; background-clip: content-box; }
     ::-webkit-scrollbar-thumb:hover { background-color: #aaaaaa66; }
-    body {min-width: 360px;min-height: 300px;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;background: #f7f7f7;color: #111;}
+    body {min-width: 360px;min-height: 300px;font-family:'Roboto', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;background: #f7f7f7;color: #111;}
     .wrap{max-width: 360px;margin: auto;display: flex;flex-direction: column;height: 100dvh;background: #ffffff;border: #dddddd solid 1px;}
     .main{flex:1;display: flex;flex-direction: column;padding: 10px 20px 0px 20px;overflow-y: auto;}
 
@@ -21,12 +21,13 @@
     .title    {font-size: 15px;font-weight: 700;color: #333333;text-decoration: none;margin-left: -4px;}
     .icon     {width: 24px;height: 24px;margin-top: -2px;margin-right: 6px;vertical-align: middle;}
     .lang-btn {font-size: 11px;color: #888;cursor: pointer;border: 1px solid #c5c5c5;border-radius: 4px;padding: 2px 8px;background: none;}
-    .lang-btn:hover { background: #f5f5f5; }
+    .lang-btn:hover {background: #ffffff;}
 
     /* 설정 행 */
-    .row      {display: flex;align-items: center;justify-content: space-between;padding: 13px 0;border-bottom: 1px solid #d1d1d1;}
+    .row      {display: flex;align-items: center;justify-content: space-between;padding: 13px 0;}
+    .row:not(:last-child) {border-bottom: 1px solid #d1d1d1;}
     .label    {font-size: 14px;color: #222;}
-    .sublabel {font-size: 13px;color: #4b4b4b;margin-top: 3px;}
+    .sublabel {font-size: 14px;color: #4b4b4b;margin-top: 3px;}
     [for="enableToggle"] {cursor:pointer}
 
     /* 토글 스위치 */
@@ -35,17 +36,19 @@
     .slider          {position: absolute;inset: 0;background: #b5b5b5;border: #939393 solid 1px;border-radius: 22px;cursor: pointer;}
     .slider:before   {content: '';position: absolute;width: 16px;height: 16px;left: 3px;top: 3px;background: #ffffff;border: #979797 solid 1px;border-radius: 50%;box-sizing: border-box;}
     body.load .slider::before{transition: all 0.2s ease;}
-    input:checked + .slider        {background: #ff0000;border-color: #ff0000;}
+    input:checked + .slider        {background: #ff0000;border-color: #cf3232;}
     input:checked + .slider:before {transform: translateX(17px);border-color: #ffffff;}
 
     /* 횟수 조절 */
-    .count-ctrl {display: flex;align-items: center;gap: 10px;border: #e9e9e9 solid 1px;background: #f7f7f7;padding: 3px;border-radius: 6px;}
-    .count-btn  {width: 26px;height: 26px;border: 1px solid #ebebeb;border-radius: 6px;background: #fff;font-size: 16px;cursor: pointer;color: #333;display: flex;align-items: center;justify-content: center;}
-    .count-btn:hover { background: #f5f5f5; }
-    .count-num  { font-size: 16px; font-weight: 700; min-width: 20px; text-align: center; }
+    .count-ctrl {display: flex;align-items: center;gap: 2px;border: #e9e9e9 solid 1px;background: #f7f7f7;padding: 3px;border-radius: 6px;}
+    .count-btn  {width: 26px;height: 26px;border: 1px solid #ebebeb;border-radius: 6px;background: #ffffff;font-size: 16px;cursor: pointer;color: #333;display: flex;align-items: center;justify-content: center;}
+    .count-btn:hover {border-color: #d1d1d1;}
+    .count-num  {font-size: 14px;font-weight: 500;min-width: 20px;text-align: center;}
 
     /* 푸터 */
     .footer { text-align: center;font-size: 13px;color: #858585;padding: 10px 20px 10px 20px;border-top: #dddddd solid 1px;}
+    .footer a {text-decoration: none;color: #858585;}
+    .footer a:hover {text-decoration: underline;}
 </style>
 </head>
 <body>
@@ -68,7 +71,7 @@
         </div>
         </label>
         <!-- 반복 횟수 조절 (+/-) -->
-        <div class="row" style="border-bottom:none">
+        <div class="row">
             <div>
                 <div class="label" id="countLabel"></div>
                 <div class="sublabel" id="countSub"></div>
@@ -80,7 +83,7 @@
             </div>
         </div>
     </main>
-    <footer class="footer" id="footerText"></footer>
+    <footer class="footer"><a href="https://www.youtube.com/shorts/" target="_blank" id="footerText"></a></footer>
 </div>
 <script src="popup.js"></script>
 </body>
